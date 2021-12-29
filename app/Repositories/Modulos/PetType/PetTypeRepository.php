@@ -24,7 +24,7 @@ class PetTypeRepository implements PetTypeRepositoryInterface
     {
         $this->petType = $petType;
     }
-    
+
     /**
      * Función para obtener todos los registros de la tabla pet_type
      *
@@ -34,7 +34,7 @@ class PetTypeRepository implements PetTypeRepositoryInterface
     {
         return $this->petType->all();
     }
-    
+
     /**
      * Función para crear un pet_type
      *
@@ -51,4 +51,14 @@ class PetTypeRepository implements PetTypeRepositoryInterface
         return $petType->id;
     }
 
+    /**
+     * Función para obtener el registro por id
+     *
+     * @param integer $id
+     * @return Collection
+     */
+    public function show(int $id): Collection
+    {
+        return $this->petType->find($id);
+    }
 }

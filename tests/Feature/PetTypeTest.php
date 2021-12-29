@@ -11,6 +11,24 @@ class PetTypeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_show_a_type_of_pet()
+    {
+        // Metodo para que me muestre las excepciones
+        $this->withoutExceptionHandling();
+        // Datos de prueba
+        $petType = PetTypeModel::factory()->create();
+        // probando el endpoint
+        $response = $this->get('/petType/'. $petType->id);
+        // Nos aseguramos de que todo marcha bien
+        $response->assertOk();
+        // Obtenemos el primer dato de la tabla
+        $petType = PetTypeModel::first();
+        // Nos aseguramos que tengamos una vista creada
+        $response->assertViewIs('petType.show');
+        // Nos aseguramos de que estemos pasando la variable a la vista
+        $response->assertViewHas('petType', $petType);
+    }
+
     public function test_list_of_pet_type_can_be_retrieved()
     {
         // Metodo para que me muestre las excepciones
