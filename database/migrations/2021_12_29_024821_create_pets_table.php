@@ -18,6 +18,7 @@ class CreatePetsTable extends Migration
             $table->string('name');
             $table->unsignedInteger('age')->comment('la edad debe ser en meses');
             $table->string('race');
+            $table->text('description');
             $table->unsignedBigInteger('pet_type_id');
             $table->timestamps();
 
