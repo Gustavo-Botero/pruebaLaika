@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\UseCases\Contracts\Modulos\PetType\CreatePetTypeInterface;
 use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
@@ -73,7 +75,7 @@ class PetTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $petType = $this->petTypeRepository->all();
 
@@ -86,9 +88,10 @@ class PetTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id): View
     {
-        //
+        $petType = $this->petTypeRepository->show($id);
+        return view('petType.show', compact('petType'));
     }
 
     /**

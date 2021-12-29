@@ -12,7 +12,7 @@ interface PetTypeRepositoryInterface
      * @return Collection
      */
     public function all(): Collection;
-    
+
     /**
      * Función para crear un pet_type
      *
@@ -21,4 +21,11 @@ interface PetTypeRepositoryInterface
      */
     public function create(array $request);
 
+    /**
+     * Función para obtener el registro por id
+     *
+     * @param integer $id
+     * @return Collection
+     */
+    public function show(int $id): Collection;
 }
