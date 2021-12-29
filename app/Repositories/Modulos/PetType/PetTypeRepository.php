@@ -55,9 +55,9 @@ class PetTypeRepository implements PetTypeRepositoryInterface
      * Función para obtener el registro por id
      *
      * @param integer $id
-     * @return Collection
+     * @return PetTypeModel
      */
-    public function show(int $id): Collection
+    public function show(int $id): PetTypeModel
     {
         return $this->petType->find($id);
     }

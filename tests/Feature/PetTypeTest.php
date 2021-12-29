@@ -11,7 +11,7 @@ class PetTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_show_a_type_of_pet()
+    public function test_show_pet_type()
     {
         // Metodo para que me muestre las excepciones
         $this->withoutExceptionHandling();
@@ -29,7 +29,7 @@ class PetTypeTest extends TestCase
         $response->assertViewHas('petType', $petType);
     }
 
-    public function test_list_of_pet_type_can_be_retrieved()
+    public function test_list_pet_type()
     {
         // Metodo para que me muestre las excepciones
         $this->withoutExceptionHandling();
@@ -47,7 +47,7 @@ class PetTypeTest extends TestCase
         $response->assertViewHas('petType', $petType);
     }
 
-    public function test_a_pet_type_can_be_created()
+    public function test_create_pet_type()
     {
         // Metodo para que me muestre las excepciones
         $this->withoutExceptionHandling();
