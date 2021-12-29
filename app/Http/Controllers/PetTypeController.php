@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PetTypeModel;
 use Illuminate\Http\Request;
+use App\UseCases\Contracts\Modulos\PetType\CreatePetTypeInterface;
 
 class PetTypeController extends Controller
 {
+    /**
+     * Implementación de CreatePetTypeInterface
+     *
+     * @var CreatePetTypeInterface
+     */
+    protected $createPetType;
+
+    /**
+     * Inyección de dependencias
+     *
+     * @param CreatePetTypeInterface $createPetType
+     */
+    public function __construct(
+        CreatePetTypeInterface $createPetType
+    ) {
+        $this->createPetType = $createPetType;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,14 +45,14 @@ class PetTypeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Función para crear un pet_type
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
-    public function store(Request $request)
+    public function store(Request $request): array
     {
-        PetTypeModel::create(['name' =>$request->name]);
+        return $this->createPetType->handle($request);
     }
 
     /**
