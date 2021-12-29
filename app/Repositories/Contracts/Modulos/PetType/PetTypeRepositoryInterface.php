@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts\Modulos\PetType;
 
+use App\Models\PetTypeModel;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PetTypeRepositoryInterface
@@ -27,5 +28,5 @@ interface PetTypeRepositoryInterface
      * @param integer $id
      * @return Collection
      */
-    public function show(int $id): Collection;
+    public function show(int $id): PetTypeModel;
 }
