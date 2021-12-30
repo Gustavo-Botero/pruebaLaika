@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('petType', PetTypeController::class);
+Route::resource('petType', PetTypeController::class)->except(['create']);

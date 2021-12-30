@@ -11,6 +11,26 @@ class PetTypeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_update_pet_type()
+    {
+        // Metodo para que me muestre las excepciones
+        $this->withoutExceptionHandling();
+        // Datos de prueba
+        $petType = PetTypeModel::factory()->create();
+        // probando el endpoint
+        $response = $this->put('/petType/' . $petType->id, [
+            'name' => 'gato'
+        ]);
+        // Nos aseguramos de que todo marcha bien
+        $response->assertOk();
+        // Revisamos de que tenga por lo menos un dato en la tabla pet_type
+        $this->assertCount(1, PetTypeModel::all());
+        // refrescamos los datos
+        $petType = $petType->fresh();
+        // Comparamos que si lo haya actualizado
+        $this->assertEquals($petType->name, 'gato');
+    }
+
     public function test_show_pet_type()
     {
         // Metodo para que me muestre las excepciones
