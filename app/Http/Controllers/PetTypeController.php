@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\UseCases\Contracts\Modulos\PetType\CreatePetTypeInterface;
+use App\UseCases\Contracts\Modulos\PetType\UpdatePetTypeInterface;
 use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
 
 class PetTypeController extends Controller
@@ -16,6 +17,12 @@ class PetTypeController extends Controller
      * @var CreatePetTypeInterface
      */
     protected $createPetType;
+    /**
+     * Implementación de UpdatePetTypeInterface
+     *
+     * @var UpdatePetTypeInterface
+     */
+    protected $updatePetType;
 
     /**
      * Implementación PetTypeRepositoryInterface
@@ -28,24 +35,17 @@ class PetTypeController extends Controller
      * Inyección de dependencias
      *
      * @param CreatePetTypeInterface $createPetType
+     * @param UpdatePetTypeInterface $updatePetType
      * @param PetTypeRepositoryInterface $petTypeRepository
      */
     public function __construct(
         CreatePetTypeInterface $createPetType,
+        UpdatePetTypeInterface $updatePetType,
         PetTypeRepositoryInterface $petTypeRepository
     ) {
         $this->createPetType = $createPetType;
+        $this->updatePetType = $updatePetType;
         $this->petTypeRepository = $petTypeRepository;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -71,9 +71,9 @@ class PetTypeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Función para mostrar los registros
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
@@ -83,19 +83,20 @@ class PetTypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Función para consultar y mostrar un registro
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param integer $id
+     * @return View
      */
     public function show(int $id): View
     {
-        $petType = $this->petTypeRepository->show($id);
+        $petType = $this->petTypeRepository->find($id);
+
         return view('petType.show', compact('petType'));
     }
 
     /**
-     * Función para crear un pet_type
+     * Función para crear un registro en la tabla pet_type
      *
      * @param Request $request
      * @return array
@@ -106,15 +107,15 @@ class PetTypeController extends Controller
     }    
 
     /**
-     * Update the specified resource in storage.
+     * Función para actualizar un registro de la tabla pet_type
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param integer $id
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): array
     {
-        //
+        return $this->updatePetType->handle($request, $id);
     }
     
 }

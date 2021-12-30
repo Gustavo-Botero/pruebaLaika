@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts\Modulos\PetType;
 
+use Illuminate\Http\Request;
 use App\Models\PetTypeModel;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -28,5 +29,14 @@ interface PetTypeRepositoryInterface
      * @param integer $id
      * @return Collection
      */
-    public function show(int $id): PetTypeModel;
+    public function find(int $id): PetTypeModel;
+
+    /**
+     * Función para actualizar un registro de la tabla pet_type
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return integer
+     */
+    public function update(Request $request, int $id): int;
 }

@@ -17,6 +17,11 @@ class UseCaseServiceProvider extends ServiceProvider
             'App\UseCases\Contracts\Modulos\PetType\CreatePetTypeInterface',
             'App\UseCases\Modulos\PetType\CreatePetTypeUseCase'
         );
+
+        $this->app->bind(
+            'App\UseCases\Contracts\Modulos\PetType\UpdatePetTypeInterface',
+            'App\UseCases\Modulos\PetType\UpdatePetTypeUseCase'
+        );
     }
 
     /**
