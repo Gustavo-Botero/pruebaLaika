@@ -53,6 +53,18 @@ class PetTypeRepository implements PetTypeRepositoryInterface
     }
 
     /**
+     * Función para eliminar un regostro de la tabla pet_type
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function delete(int $id): bool
+    {
+        $petType = $this->find($id);
+        return $petType->delete();
+    }
+
+    /**
      * Función para obtener el registro por id
      *
      * @param integer $id

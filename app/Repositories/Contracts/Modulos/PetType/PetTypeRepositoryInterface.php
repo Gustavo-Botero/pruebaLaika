@@ -24,6 +24,13 @@ interface PetTypeRepositoryInterface
     public function create(array $request);
 
     /**
+     * Función para eliminar un regostro de la tabla pet_type
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function delete(int $id): bool;
+    /**
      * Función para obtener el registro por id
      *
      * @param integer $id

@@ -11,6 +11,20 @@ class PetTypeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_delete_pet_type()
+    {
+        // Metodo para que me muestre las excepciones
+        $this->withoutExceptionHandling();
+        // Datos de prueba
+        $petType = PetTypeModel::factory()->create();
+        // probando el endpoint
+        $response = $this->delete('/petType/' . $petType->id);
+        // Nos aseguramos de que todo marcha bien
+        $response->assertOk();
+        // Revisamos que se haya eliminado el registro de la tabla pet_type
+        $this->assertCount(0, PetTypeModel::all());
+    }
+
     public function test_update_pet_type()
     {
         // Metodo para que me muestre las excepciones

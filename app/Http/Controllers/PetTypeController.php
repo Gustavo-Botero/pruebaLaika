@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\UseCases\Contracts\Modulos\PetType\CreatePetTypeInterface;
 use App\UseCases\Contracts\Modulos\PetType\UpdatePetTypeInterface;
+use App\UseCases\Contracts\Modulos\PetType\DeletePetTypeInterface;
 use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
 
 class PetTypeController extends Controller
@@ -25,6 +26,13 @@ class PetTypeController extends Controller
     protected $updatePetType;
 
     /**
+     * Implementación de DeletePetTypeInterface
+     *
+     * @var DeletePetTypeInterface
+     */
+    protected $deletePetType;
+
+    /**
      * Implementación PetTypeRepositoryInterface
      *
      * @var PetTypeRepositoryInterface
@@ -36,27 +44,30 @@ class PetTypeController extends Controller
      *
      * @param CreatePetTypeInterface $createPetType
      * @param UpdatePetTypeInterface $updatePetType
+     * @param DeletePetTypeInterface $deletePetType
      * @param PetTypeRepositoryInterface $petTypeRepository
      */
     public function __construct(
         CreatePetTypeInterface $createPetType,
         UpdatePetTypeInterface $updatePetType,
+        DeletePetTypeInterface $deletePetType,
         PetTypeRepositoryInterface $petTypeRepository
     ) {
         $this->createPetType = $createPetType;
         $this->updatePetType = $updatePetType;
+        $this->deletePetType = $deletePetType;
         $this->petTypeRepository = $petTypeRepository;
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Función para eliminar un registro de la tabla pet_type
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param integer $id
+     * @return array
      */
-    public function destroy($id)
+    public function destroy(int $id): array
     {
-        //
+        return $this->deletePetType->handle($id);
     }
 
     /**
