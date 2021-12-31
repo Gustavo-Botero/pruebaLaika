@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
 class PetsController extends Controller
 {
+    /**
+     * Implementación de CreatePetsInterface
+     *
+     * @var CreatePetsInterface
+     */
+    protected $createPets;
+
     /**
      * Implementación de PetsRepositoryInterface
      *
@@ -18,11 +26,14 @@ class PetsController extends Controller
     /**
      * Inyección de dependencias
      *
+     * @param CreatePetsInterface $createPets
      * @param PetsRepositoryInterface $petsRepository
      */
     public function __construct(
+        CreatePetsInterface $createPets,
         PetsRepositoryInterface $petsRepository
     ) {
+        $this->createPets = $createPets;
         $this->petsRepository = $petsRepository;
     }
 
@@ -74,14 +85,14 @@ class PetsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Función para crear un registro en la tabla pets
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
-    public function store(Request $request)
+    public function store(Request $request): array
     {
-        //
+        return $this->createPets->handle($request);
     }
 
     /**

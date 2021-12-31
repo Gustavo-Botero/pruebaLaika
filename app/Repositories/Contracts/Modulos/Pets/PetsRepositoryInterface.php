@@ -3,6 +3,7 @@
 namespace App\Repositories\Contracts\Modulos\Pets;
 
 use App\Models\PetsModel;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PetsRepositoryInterface
@@ -14,6 +15,14 @@ interface PetsRepositoryInterface
      * @return Collection
      */
     public function all(): Collection;
+
+    /**
+     * Función para crear un pets
+     *
+     * @param Request $request
+     * @return PetsModel
+     */
+    public function create(Request $request): PetsModel;
 
     /**
      * Función para consultar un registro de la tabla pets

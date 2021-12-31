@@ -3,6 +3,7 @@
 namespace App\Repositories\Modulos\Pets;
 
 use App\Models\PetsModel;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
@@ -35,6 +36,26 @@ class PetsRepository implements PetsRepositoryInterface
     public function all(): Collection
     {
         return $this->pets->all();
+    }
+
+    /**
+     * Función para crear un pets
+     *
+     * @param Request $request
+     * @return PetsModel
+     */
+    public function create(Request $request): PetsModel
+    {
+        $pets = new $this->pets;
+        $pets->name = $request->name;
+        $pets->age = $request->age;
+        $pets->race = $request->race;
+        $pets->description = $request->description;
+        $pets->pet_type_id = $request->pet_type_id;
+        $pets->save();
+
+        return $pets;
+
     }
 
     /**
