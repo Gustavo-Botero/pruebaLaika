@@ -68,4 +68,25 @@ class PetsRepository implements PetsRepositoryInterface
     {
         return $this->pets->find($id);
     }
+
+    /**
+     * Función para actualizar un registro en la tabla pets
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return PetsModel
+     */
+    public function update(Request $request, int $id): PetsModel
+    {
+        $pets = $this->find($id);
+        $pets->name = $request->name;
+        $pets->age = $request->age;
+        $pets->race = $request->race;
+        $pets->description = $request->description;
+        $pets->pet_type_id = $request->pet_type_id;
+
+        $pets->update();
+
+        return $pets;
+    }
 }

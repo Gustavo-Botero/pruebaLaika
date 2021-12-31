@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface;
+use App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
 class PetsController extends Controller
@@ -17,6 +18,13 @@ class PetsController extends Controller
     protected $createPets;
 
     /**
+     * Implementación de UpdatePetsInterface
+     *
+     * @var UpdatePetsInterface
+     */
+    protected $updatePets;
+
+    /**
      * Implementación de PetsRepositoryInterface
      *
      * @var PetsRepositoryInterface
@@ -27,13 +35,16 @@ class PetsController extends Controller
      * Inyección de dependencias
      *
      * @param CreatePetsInterface $createPets
+     * @param UpdatePetsInterface $updatePets
      * @param PetsRepositoryInterface $petsRepository
      */
     public function __construct(
         CreatePetsInterface $createPets,
+        UpdatePetsInterface $updatePets,
         PetsRepositoryInterface $petsRepository
     ) {
         $this->createPets = $createPets;
+        $this->updatePets = $updatePets;
         $this->petsRepository = $petsRepository;
     }
 
@@ -96,15 +107,15 @@ class PetsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Función para actualizar un registro en la tabla pets
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param integer $id
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): array
     {
-        //
+        return $this->updatePets->handle($request, $id);
     }
 
     

@@ -31,4 +31,13 @@ interface PetsRepositoryInterface
      * @return PetsModel
      */
     public function find(int $id): PetsModel;
+
+    /**
+     * Función para actualizar un registro en la tabla pets
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return PetsModel
+     */
+    public function update(Request $request, int $id): PetsModel;
 }
