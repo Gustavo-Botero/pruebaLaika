@@ -2,9 +2,15 @@
 
 namespace App\UseCases\Contracts\Modulos\Pets;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PetsStoreRequest;
 
 interface CreatePetsInterface
 {
-    public function handle(Request $request): array;
+    /**
+     * Función para crear un registro en pets
+     *
+     * @param PetsStoreRequest $request
+     * @return array
+     */
+    public function handle(PetsStoreRequest $request): array;
 }

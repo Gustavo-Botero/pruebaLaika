@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use Tests\TestCase;
 use App\Models\PetsModel;
 use App\Models\PetTypeModel;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -47,5 +47,28 @@ class CreatePetsTest extends TestCase
                 'pet_type_id' => $pets->pet_type_id
             ]
         ]);
+    }
+
+    public function test_the_date_is_required()
+    {
+        // probando el endpoint
+        $this->postJson('/pets', [
+            'name' => '',
+            'age' => '',
+            'race' => '',
+            'description' => '',
+            'pet_type_id' => ''
+        ])->assertJsonValidationErrors(['name', 'age', 'race', 'description', 'pet_type_id']);
+    }
+
+    public function test_age_and_type_of_pet_are_numerical()
+    {
+        $this->postJson('/pets', [
+            'name' => '',
+            'age' => 'aaa',
+            'race' => '',
+            'description' => '',
+            'pet_type_id' => 'aaa'
+        ])->assertJsonValidationErrors(['age', 'pet_type_id']);
     }
 }

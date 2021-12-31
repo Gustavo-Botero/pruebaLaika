@@ -3,7 +3,7 @@
 namespace App\Repositories\Contracts\Modulos\Pets;
 
 use App\Models\PetsModel;
-use Illuminate\Http\Request;
+use App\Http\Requests\PetsStoreRequest;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PetsRepositoryInterface
@@ -19,10 +19,10 @@ interface PetsRepositoryInterface
     /**
      * Función para crear un pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @return PetsModel
      */
-    public function create(Request $request): PetsModel;
+    public function create(PetsStoreRequest $request): PetsModel;
 
     /**
      * Función para eliminar un registro de la tabla pets
@@ -43,9 +43,9 @@ interface PetsRepositoryInterface
     /**
      * Función para actualizar un registro en la tabla pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @param integer $id
      * @return PetsModel
      */
-    public function update(Request $request, int $id): PetsModel;
+    public function update(PetsStoreRequest $request, int $id): PetsModel;
 }
