@@ -17,6 +17,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface',
             'App\Repositories\Modulos\PetType\PetTypeRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface',
+            'App\Repositories\Modulos\Pets\PetsRepository'
+        );
     }
 
     /**

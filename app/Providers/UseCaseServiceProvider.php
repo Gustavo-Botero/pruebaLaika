@@ -27,6 +27,21 @@ class UseCaseServiceProvider extends ServiceProvider
             'App\UseCases\Contracts\Modulos\PetType\DeletePetTypeInterface',
             'App\UseCases\Modulos\PetType\DeletePetTypeUseCase'
         );
+
+        $this->app->bind(
+            'App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface',
+            'App\UseCases\Modulos\Pets\CreatePetsUseCase'
+        );
+
+        $this->app->bind(
+            'App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface',
+            'App\UseCases\Modulos\Pets\UpdatePetsUseCase'
+        );
+
+        $this->app->bind(
+            'App\UseCases\Contracts\Modulos\Pets\DeletePetsInterface',
+            'App\UseCases\Modulos\Pets\DeletePetsUseCase'
+        );
     }
 
     /**
