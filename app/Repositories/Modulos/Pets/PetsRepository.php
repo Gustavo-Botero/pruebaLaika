@@ -3,6 +3,7 @@
 namespace App\Repositories\Modulos\Pets;
 
 use App\Models\PetsModel;
+use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
 class PetsRepository implements PetsRepositoryInterface
@@ -24,6 +25,16 @@ class PetsRepository implements PetsRepositoryInterface
         PetsModel $pets
     ) {
         $this->pets = $pets;
+    }
+
+    /**
+     * Función para mostrar todos los registros de la tabla pets
+     *
+     * @return Collection
+     */
+    public function all(): Collection
+    {
+        return $this->pets->all();
     }
 
     /**

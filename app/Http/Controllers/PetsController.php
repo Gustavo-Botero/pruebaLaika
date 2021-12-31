@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
-use Illuminate\View\View;
 
 class PetsController extends Controller
 {
@@ -49,13 +49,15 @@ class PetsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Función para mostrar todos los registros de la tabla pets
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $pets = $this->petsRepository->all();
+
+        return view('pets.index', compact('pets'));
     }
 
     /**

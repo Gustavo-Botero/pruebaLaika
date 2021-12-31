@@ -18,7 +18,7 @@ class PetsModelFactory extends Factory
             'age' => rand(1,180),
             'race' => $this->faker->name(),
             'description' => $this->faker->paragraph(),
-            'pet_type_id' => 10
+            'pet_type_id' => rand(1,3)
         ];
     }
 }
