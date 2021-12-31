@@ -33,7 +33,7 @@ class CreatePetsTest extends TestCase
         // Consultamos el primer registro porque solo guardamos uno
         $pets = PetsModel::first();
         // Comparamos si es lo que guardamos
-        $response->assertJson([
+        $response->assertExactJson([
             'alert' => true,
             'icon' => 'success',
             'title' => 'Mascota guardada',
