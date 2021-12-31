@@ -2,7 +2,7 @@
 
 namespace App\UseCases\Modulos\Pets;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PetsStoreRequest;
 use App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
@@ -29,11 +29,11 @@ class UpdatePetsUseCase implements UpdatePetsInterface
     /**
      * Función para actualizar un registro en la tabla pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @param integer $id
      * @return array
      */
-    public function handle(Request $request, int $id): array
+    public function handle(PetsStoreRequest $request, int $id): array
     {
         $pets = $this->petsRepository->update($request, $id);
 

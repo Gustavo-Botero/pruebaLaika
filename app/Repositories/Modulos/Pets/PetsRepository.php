@@ -3,7 +3,7 @@
 namespace App\Repositories\Modulos\Pets;
 
 use App\Models\PetsModel;
-use Illuminate\Http\Request;
+use App\Http\Requests\PetsStoreRequest;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
@@ -41,10 +41,10 @@ class PetsRepository implements PetsRepositoryInterface
     /**
      * Función para crear un pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @return PetsModel
      */
-    public function create(Request $request): PetsModel
+    public function create(PetsStoreRequest $request): PetsModel
     {
         $pets = new $this->pets;
         $pets->name = $request->name;
@@ -87,7 +87,7 @@ class PetsRepository implements PetsRepositoryInterface
      * @param integer $id
      * @return PetsModel
      */
-    public function update(Request $request, int $id): PetsModel
+    public function update(PetsStoreRequest $request, int $id): PetsModel
     {
         $pets = $this->find($id);
         $pets->name = $request->name;
