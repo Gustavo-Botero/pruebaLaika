@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\PetTypeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PetsController;
+use App\Http\Controllers\PetTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,7 @@ Route::get('/', function () {
 });
 
 Route::resource('petType', PetTypeController::class)->except(['create']);
+Route::resource('pets', PetsController::class);
+
+
+

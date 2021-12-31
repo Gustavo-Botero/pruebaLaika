@@ -14,6 +14,7 @@ class PetTypeModelFactory extends Factory
     public function definition()
     {
         return [
+            'id' => $this->faker->unique()->numberBetween(1,3),
             'name' => $this->faker->name()
         ];
     }
