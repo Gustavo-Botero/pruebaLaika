@@ -25,6 +25,14 @@ interface PetsRepositoryInterface
     public function create(Request $request): PetsModel;
 
     /**
+     * Función para eliminar un registro de la tabla pets
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function delete(int $id): bool;
+
+    /**
      * Función para consultar un registro de la tabla pets
      *
      * @param integer $id

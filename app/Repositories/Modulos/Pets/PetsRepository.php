@@ -59,6 +59,17 @@ class PetsRepository implements PetsRepositoryInterface
     }
 
     /**
+     * Función para eliminar un registro de la tabla pets
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function delete(int $id): bool
+    {
+        return $this->find($id)->delete();
+    }
+
+    /**
      * Función para consultar un registro de la tabla pets
      *
      * @param integer $id
