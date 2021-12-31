@@ -34,7 +34,7 @@ class UpdatePetsTest extends TestCase
         // refrescamos los datos
         $pets = $pets->fresh();
         // Comparamos que si lo haya actualizado
-        $response->assertJson([
+        $response->assertExactJson([
             'alert' => true,
             'icon' => 'success',
             'title' => 'Mascota actualizada',
