@@ -58,7 +58,6 @@ const limpiarForm = (idForm) => {
 }
 
 const crearRegistroEnTabla = (data, idForm) => {
-    console.log(data);
     $('.table-' + idForm + ' tbody').append(addRow(data));
 }
 
@@ -94,7 +93,7 @@ const deleteRow = (id, idForm) => {
             }
         },
         callback:function(res){
-            console.log(res);
+
             if (res) {
                 $.ajax({
                     type: "POST",
@@ -104,12 +103,57 @@ const deleteRow = (id, idForm) => {
                         _method: 'DELETE'
                     },
                     success: function (result) {
-                        console.log(result);
                         outAjax(result);
                         $(`#${idForm}-${id}`).remove();
                     }
                 });
             }
+        }
+    });
+}
+
+const showRow = (id, idForm) => {
+    $.ajax({
+        type: "GET",
+        url: window.laravel.url+'/'+idForm+'/'+id,
+        success: function (response) {
+            
+            limpiarForm(idForm);
+            $('.btn-guardar').attr('disabled', true);
+            $('.btn-actualizar').attr('disabled', false);
+            $.each(response.data, function (index, value) { 
+                if (index == 'pet_type_id') {
+                    $(`#${idForm} #pet_type_id option:eq(${value})`).prop('selected', true);
+                } else {
+                    $(`#${idForm} #${index}`).val(value);
+                }
+            });
+        }
+    });
+}
+
+const updateRow = (idForm) => {
+    let valImput = {};
+    let id = $(`#${idForm} #id`).val();
+    
+    // Capturando los name de los imput para enviarlos al controlador
+    $('#' + idForm + ' label').each(function (index, value) {
+        let label = $(this).attr('for');
+        valImput[label] = $('#' + label).val();
+    });
+    console.log(valImput);
+    $.ajax({
+        type: 'POST',
+        url: window.laravel.url+'/'+idForm+'/'+id,
+        data: {
+            data: valImput,
+            _token: window.laravel.token,
+            _method: 'PUT'
+        },
+        success: function (response) {
+            outAjax(response);
+            $(`#${idForm}-${id}`).remove();
+            crearRegistroEnTabla(response.data, idForm);
         }
     });
 }

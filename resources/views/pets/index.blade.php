@@ -9,7 +9,7 @@
             @csrf
             <fieldset>
                 <div class="card-body row">
-
+                    <input type="hidden" id="id">
                     <div class="form-group col-6">
                         <label for="name">Nombre:</label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Ingrese el nombre de la mascota">
@@ -47,7 +47,7 @@
             <div class="card-footer row text-center">
                 <div class="col-12">
                     <button onclick="sendAjax('pets')" class="btn btn-success btn-guardar">Guardar</button>
-                    <button class="btn btn-primary btn-actualizar" disabled>Actualizar</button>
+                    <button onclick="updateRow('pets')" class="btn btn-primary btn-actualizar" disabled>Actualizar</button>
                     <button onclick="limpiarForm('pets')" class="btn btn-secondary">Limpiar</button>
                 </div>
             </div> 
