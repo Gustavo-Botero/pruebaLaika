@@ -35,7 +35,7 @@ class UpdatePetsUseCase implements UpdatePetsInterface
      */
     public function handle(PetsStoreRequest $request, int $id): array
     {
-        $pets = $this->petsRepository->update($request, $id);
+        $pets = $this->petsRepository->update($request->data, $id);
 
         return [
             'alert' => true,
