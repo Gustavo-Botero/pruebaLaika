@@ -43,9 +43,9 @@ interface PetsRepositoryInterface
     /**
      * Función para actualizar un registro en la tabla pets
      *
-     * @param PetsStoreRequest $request
+     * @param array $request
      * @param integer $id
      * @return PetsModel
      */
-    public function update(PetsStoreRequest $request, int $id): PetsModel;
+    public function update(array $request, int $id): PetsModel;
 }

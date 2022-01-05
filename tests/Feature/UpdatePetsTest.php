@@ -21,11 +21,13 @@ class UpdatePetsTest extends TestCase
         $pets = PetsModel::factory()->create();
         // probando el endpoint
         $response = $this->putJson('/pets/' . $pets->id, [
-            'name' => 'Pascal',
-            'age' => 13,
-            'race' => 'Criollo',
-            'description' => 'Descripción del animal',
-            'pet_type_id' => $petType[0]['id']
+            'data' => [
+                'name' => 'Pascal',
+                'age' => 13,
+                'race' => 'Criollo',
+                'description' => 'Descripción del animal',
+                'pet_type_id' => $petType[0]['id']
+            ]
         ]);
         // Nos aseguramos de que todo marcha bien
         $response->assertOk();
@@ -45,8 +47,31 @@ class UpdatePetsTest extends TestCase
                 'age' => $pets->age,
                 'race' => $pets->race,
                 'description' => $pets->description,
-                'pet_type_id' => $pets->pet_type_id
+                'pet_type' => $petType[0]->name
             ]
         ]);
+    }
+
+    public function test_the_date_is_required()
+    {
+        // probando el endpoint
+        $this->postJson('/pets', [
+            'name' => '',
+            'age' => '',
+            'race' => '',
+            'description' => '',
+            'pet_type_id' => ''
+        ])->assertJsonValidationErrors(['data.name', 'data.age', 'data.race', 'data.description', 'data.pet_type_id']);
+    }
+
+    public function test_age_and_type_of_pet_are_numerical()
+    {
+        $this->postJson('/pets', [
+            'name' => '',
+            'age' => 'aaa',
+            'race' => '',
+            'description' => '',
+            'pet_type_id' => 'aaa'
+        ])->assertJsonValidationErrors(['data.age', 'data.pet_type_id']);
     }
 }
