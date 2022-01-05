@@ -20,11 +20,13 @@ class CreatePetsTest extends TestCase
         $petType = PetTypeModel::factory()->create();
         // probando el endpoint
         $response = $this->postJson('/pets', [
-            'name' => 'Pascal',
-            'age' => 13,
-            'race' => 'Criollo',
-            'description' => 'Descripción del animal',
-            'pet_type_id' => $petType->id
+            'data' => [
+                'name' => 'Pascal',
+                'age' => 13,
+                'race' => 'Criollo',
+                'description' => 'Descripción del animal',
+                'pet_type_id' => $petType->id
+            ]
         ]);
         // Nos aseguramos de que todo marcha bien
         $response->assertOk();
@@ -58,7 +60,7 @@ class CreatePetsTest extends TestCase
             'race' => '',
             'description' => '',
             'pet_type_id' => ''
-        ])->assertJsonValidationErrors(['name', 'age', 'race', 'description', 'pet_type_id']);
+        ])->assertJsonValidationErrors(['data.name', 'data.age', 'data.race', 'data.description', 'data.pet_type_id']);
     }
 
     public function test_age_and_type_of_pet_are_numerical()
@@ -69,6 +71,6 @@ class CreatePetsTest extends TestCase
             'race' => '',
             'description' => '',
             'pet_type_id' => 'aaa'
-        ])->assertJsonValidationErrors(['age', 'pet_type_id']);
+        ])->assertJsonValidationErrors(['data.age', 'data.pet_type_id']);
     }
 }
