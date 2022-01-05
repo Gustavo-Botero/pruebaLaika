@@ -9,6 +9,7 @@ use App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\DeletePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
+use App\UseCases\Contracts\Modulos\Pets\ShowPetsInterface;
 
 class PetsController extends Controller
 {
@@ -34,6 +35,13 @@ class PetsController extends Controller
     protected $deletePets;
 
     /**
+     * Implementación de ShowPetsInterface
+     *
+     * @var ShowPetsInterface
+     */
+    protected $showPets;
+
+    /**
      * Implementación de PetsRepositoryInterface
      *
      * @var PetsRepositoryInterface
@@ -53,6 +61,7 @@ class PetsController extends Controller
      * @param CreatePetsInterface $createPets
      * @param UpdatePetsInterface $updatePets
      * @param DeletePetsInterface $deletePets
+     * @param ShowPetsInterface $showPets
      * @param PetsRepositoryInterface $petsRepository
      * @param PetTypeRepositoryInterface $petTypeRepository
      */
@@ -60,12 +69,14 @@ class PetsController extends Controller
         CreatePetsInterface $createPets,
         UpdatePetsInterface $updatePets,
         DeletePetsInterface $deletePets,
+        ShowPetsInterface $showPets,
         PetsRepositoryInterface $petsRepository,
         PetTypeRepositoryInterface $petTypeRepository
     ) {
         $this->createPets = $createPets;
         $this->updatePets = $updatePets;
         $this->deletePets = $deletePets;
+        $this->showPets = $showPets;
         $this->petsRepository = $petsRepository;
         $this->petTypeRepository = $petTypeRepository;
     }
@@ -82,17 +93,6 @@ class PetsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Función para mostrar todos los registros de la tabla pets
      *
      * @return View
@@ -106,16 +106,14 @@ class PetsController extends Controller
     }
 
     /**
-     * Función para consultar un registro de la tabla pets
+     * Función para consultar un registro por id en la tabla pets
      *
      * @param integer $id
-     * @return View
+     * @return array
      */
-    public function show(int $id): View
-    {
-        $pets = $this->petsRepository->find($id);
-
-        return view('pets.show', compact('pets'));
+    public function show(int $id): array
+    {   
+        return $this->showPets->handle($id);
     }
 
     /**

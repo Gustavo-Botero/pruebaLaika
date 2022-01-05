@@ -28,7 +28,7 @@ class DeletePetsTest extends TestCase
         // Comparamos la respuesta
         $response->assertExactJson([
             'alert' => true,
-            'icon' => 'primary',
+            'icon' => 'info',
             'title' => 'Mascota eliminada correctamente.',
             'limpForm' => 'pets'
         ]);

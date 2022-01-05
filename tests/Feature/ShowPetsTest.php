@@ -24,9 +24,16 @@ class ShowPetsTest extends TestCase
         $response = $this->getJson('/pets/' . $pets->id);
         // Nos aseguramos de que todo esta bien
         $response->assertOk();
-        // Comprobamos de que tengamos la vista
-        $response->assertViewIs('pets.show');
-        // Nos aseguramos de que estamos pasando los datos
-        $response->assertViewHas('pets', $pets);
+
+        $response->assertExactJson([
+            'data' => [
+                'id' => $pets->id,
+                'name' => $pets->name,
+                'age' => $pets->age,
+                'race' => $pets->race,
+                'pet_type_id' => $pets->pet_type_id,
+                'description' => $pets->description
+            ]
+        ]);
     }
 }
