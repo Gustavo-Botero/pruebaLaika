@@ -37,7 +37,7 @@ class DeletePetsUseCase implements DeletePetsInterface
 
         return [
             'alert' => true,
-            'icon' => 'primary',
+            'icon' => 'info',
             'title' => 'Mascota eliminada correctamente.',
             'limpForm' => 'pets'
         ];

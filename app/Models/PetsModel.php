@@ -18,4 +18,9 @@ class PetsModel extends Model
         'description',
         'pet_type_id',
     ];
+
+    public function pet_type()
+    {
+        return $this->belongsTo(PetTypeModel::class);
+    }
 }
