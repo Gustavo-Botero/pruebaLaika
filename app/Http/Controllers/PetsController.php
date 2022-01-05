@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
+use App\Http\Requests\PetsStoreRequest;
 use App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\DeletePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
+use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
 
 class PetsController extends Controller
 {
@@ -40,23 +41,33 @@ class PetsController extends Controller
     protected $petsRepository;
 
     /**
+     * Implementación de PetTypeRepositoryInterface
+     *
+     * @var PetTypeRepositoryInterface
+     */
+    protected $petTypeRepository;
+
+    /**
      * Inyección de dependencias
      *
      * @param CreatePetsInterface $createPets
      * @param UpdatePetsInterface $updatePets
      * @param DeletePetsInterface $deletePets
      * @param PetsRepositoryInterface $petsRepository
+     * @param PetTypeRepositoryInterface $petTypeRepository
      */
     public function __construct(
         CreatePetsInterface $createPets,
         UpdatePetsInterface $updatePets,
         DeletePetsInterface $deletePets,
-        PetsRepositoryInterface $petsRepository
+        PetsRepositoryInterface $petsRepository,
+        PetTypeRepositoryInterface $petTypeRepository
     ) {
         $this->createPets = $createPets;
         $this->updatePets = $updatePets;
         $this->deletePets = $deletePets;
         $this->petsRepository = $petsRepository;
+        $this->petTypeRepository = $petTypeRepository;
     }
 
     /**
@@ -88,9 +99,10 @@ class PetsController extends Controller
      */
     public function index(): View
     {
+        $petType = $this->petTypeRepository->all();
         $pets = $this->petsRepository->all();
 
-        return view('pets.index', compact('pets'));
+        return view('pets.index', compact('pets', 'petType'));
     }
 
     /**
@@ -109,10 +121,10 @@ class PetsController extends Controller
     /**
      * Función para crear un registro en la tabla pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @return array
      */
-    public function store(Request $request): array
+    public function store(PetsStoreRequest $request): array
     {
         return $this->createPets->handle($request);
     }
@@ -120,11 +132,11 @@ class PetsController extends Controller
     /**
      * Función para actualizar un registro en la tabla pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @param integer $id
      * @return array
      */
-    public function update(Request $request, int $id): array
+    public function update(PetsStoreRequest $request, int $id): array
     {
         return $this->updatePets->handle($request, $id);
     }

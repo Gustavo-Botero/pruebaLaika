@@ -2,9 +2,9 @@
 
 namespace App\UseCases\Modulos\Pets;
 
-use Illuminate\Http\Request;
-use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
+use App\Http\Requests\PetsStoreRequest;
 use App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface;
+use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 
 class CreatePetsUseCase implements CreatePetsInterface
 {
@@ -29,12 +29,12 @@ class CreatePetsUseCase implements CreatePetsInterface
     /**
      * Función para crear un registro en la tabla pets
      *
-     * @param Request $request
+     * @param PetsStoreRequest $request
      * @return array
      */
-    public function handle(Request $request): array
+    public function handle(PetsStoreRequest $request): array
     {
-        $pets = $this->petsRepository->create($request);
+        $pets = $this->petsRepository->create($request->data);
 
         return [
             'alert' => true,

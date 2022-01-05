@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use Tests\TestCase;
 use App\Models\PetsModel;
 use App\Models\PetTypeModel;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -20,11 +20,13 @@ class CreatePetsTest extends TestCase
         $petType = PetTypeModel::factory()->create();
         // probando el endpoint
         $response = $this->postJson('/pets', [
-            'name' => 'Pascal',
-            'age' => 13,
-            'race' => 'Criollo',
-            'description' => 'Descripción del animal',
-            'pet_type_id' => $petType->id
+            'data' => [
+                'name' => 'Pascal',
+                'age' => 13,
+                'race' => 'Criollo',
+                'description' => 'Descripción del animal',
+                'pet_type_id' => $petType->id
+            ]
         ]);
         // Nos aseguramos de que todo marcha bien
         $response->assertOk();
@@ -47,5 +49,28 @@ class CreatePetsTest extends TestCase
                 'pet_type_id' => $pets->pet_type_id
             ]
         ]);
+    }
+
+    public function test_the_date_is_required()
+    {
+        // probando el endpoint
+        $this->postJson('/pets', [
+            'name' => '',
+            'age' => '',
+            'race' => '',
+            'description' => '',
+            'pet_type_id' => ''
+        ])->assertJsonValidationErrors(['data.name', 'data.age', 'data.race', 'data.description', 'data.pet_type_id']);
+    }
+
+    public function test_age_and_type_of_pet_are_numerical()
+    {
+        $this->postJson('/pets', [
+            'name' => '',
+            'age' => 'aaa',
+            'race' => '',
+            'description' => '',
+            'pet_type_id' => 'aaa'
+        ])->assertJsonValidationErrors(['data.age', 'data.pet_type_id']);
     }
 }
