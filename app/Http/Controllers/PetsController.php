@@ -8,6 +8,7 @@ use App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\DeletePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
+use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
 
 class PetsController extends Controller
 {
@@ -40,23 +41,33 @@ class PetsController extends Controller
     protected $petsRepository;
 
     /**
+     * Implementación de PetTypeRepositoryInterface
+     *
+     * @var PetTypeRepositoryInterface
+     */
+    protected $petTypeRepository;
+
+    /**
      * Inyección de dependencias
      *
      * @param CreatePetsInterface $createPets
      * @param UpdatePetsInterface $updatePets
      * @param DeletePetsInterface $deletePets
      * @param PetsRepositoryInterface $petsRepository
+     * @param PetTypeRepositoryInterface $petTypeRepository
      */
     public function __construct(
         CreatePetsInterface $createPets,
         UpdatePetsInterface $updatePets,
         DeletePetsInterface $deletePets,
-        PetsRepositoryInterface $petsRepository
+        PetsRepositoryInterface $petsRepository,
+        PetTypeRepositoryInterface $petTypeRepository
     ) {
         $this->createPets = $createPets;
         $this->updatePets = $updatePets;
         $this->deletePets = $deletePets;
         $this->petsRepository = $petsRepository;
+        $this->petTypeRepository = $petTypeRepository;
     }
 
     /**
@@ -88,9 +99,10 @@ class PetsController extends Controller
      */
     public function index(): View
     {
+        $petType = $this->petTypeRepository->all();
         $pets = $this->petsRepository->all();
 
-        return view('pets.index', compact('pets'));
+        return view('pets.index', compact('pets', 'petType'));
     }
 
     /**
