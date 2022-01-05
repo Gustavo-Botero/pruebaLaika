@@ -29,5 +29,6 @@ class ListPetsTest extends TestCase
         $response->assertViewIs('pets.index');
         // Enviar datos a la vista
         $response->assertViewHas('pets',PetsModel::all());
+        $response->assertViewHas('petType', PetTypeModel::all());
     }
 }

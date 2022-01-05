@@ -16,7 +16,7 @@ use App\Http\Controllers\PetTypeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/pets');
 });
 
 Route::resource('petType', PetTypeController::class)->except(['create']);
