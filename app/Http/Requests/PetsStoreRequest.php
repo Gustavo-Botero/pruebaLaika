@@ -24,11 +24,11 @@ class PetsStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'age' => 'required|numeric',
-            'race' => 'required',
-            'description' => 'required',
-            'pet_type_id' => 'required|numeric',
+            'data.name' => 'required',
+            'data.age' => 'required|numeric',
+            'data.race' => 'required',
+            'data.description' => 'required',
+            'data.pet_type_id' => 'required|numeric',
         ];
     }
 }

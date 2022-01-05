@@ -5,7 +5,8 @@
 
 @section('content')
     <div class="col-12">
-        <form action="">
+        <form action=" {{route('pets.store')}} " method="POST" id="pets">
+            @csrf
             <fieldset>
                 <div class="card-body row">
 
@@ -20,8 +21,8 @@
                     </div>
     
                     <div class="form-group col-6">
-                        <label for="pet_tipe">Tipo de mascota:</label>
-                        <select class="form-control" name="pet_tipe" id="pet_tipe">
+                        <label for="pet_type_id">Tipo de mascota:</label>
+                        <select class="form-control" name="pet_type_id" id="pet_type_id">
                             <option value="">--Seleccione--</option>
                             @foreach ($petType as $row)
                                 <option value=" {{$row->id}} "> {{$row->name}} </option>
@@ -45,7 +46,7 @@
         <fieldset>
             <div class="card-footer row text-center">
                 <div class="col-12">
-                    <button class="btn btn-success btn-guardar">Guardar</button>
+                    <button onclick="sendAjax('pets')" class="btn btn-success btn-guardar">Guardar</button>
                     <button class="btn btn-primary btn-actualizar" disabled>Actualizar</button>
                     <button class="btn btn-secondary">Limpiar</button>
                 </div>

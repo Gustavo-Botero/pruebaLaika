@@ -41,17 +41,17 @@ class PetsRepository implements PetsRepositoryInterface
     /**
      * Función para crear un pets
      *
-     * @param PetsStoreRequest $request
+     * @param array $request
      * @return PetsModel
      */
-    public function create(PetsStoreRequest $request): PetsModel
+    public function create(array $request): PetsModel
     {
         $pets = new $this->pets;
-        $pets->name = $request->name;
-        $pets->age = $request->age;
-        $pets->race = $request->race;
-        $pets->description = $request->description;
-        $pets->pet_type_id = $request->pet_type_id;
+        $pets->name = $request['name'];
+        $pets->age = $request['age'];
+        $pets->race = $request['race'];
+        $pets->description = $request['description'];
+        $pets->pet_type_id = $request['pet_type_id'];
         $pets->save();
 
         return $pets;

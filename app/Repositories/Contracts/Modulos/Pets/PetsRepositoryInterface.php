@@ -19,10 +19,10 @@ interface PetsRepositoryInterface
     /**
      * Función para crear un pets
      *
-     * @param PetsStoreRequest $request
+     * @param array $request
      * @return PetsModel
      */
-    public function create(PetsStoreRequest $request): PetsModel;
+    public function create(array $request): PetsModel;
 
     /**
      * Función para eliminar un registro de la tabla pets

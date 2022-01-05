@@ -34,7 +34,7 @@ class CreatePetsUseCase implements CreatePetsInterface
      */
     public function handle(PetsStoreRequest $request): array
     {
-        $pets = $this->petsRepository->create($request);
+        $pets = $this->petsRepository->create($request->data);
 
         return [
             'alert' => true,
