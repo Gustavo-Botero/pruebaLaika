@@ -2,10 +2,10 @@
 
 namespace App\UseCases\Modulos\Pets;
 
-use App\UseCases\Contracts\Modulos\Pets\DeletePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
+use App\UseCases\Contracts\Modulos\Pets\ShowPetsInterface;
 
-class DeletePetsUseCase implements DeletePetsInterface
+class ShowPetsUseCase implements ShowPetsInterface
 {
     /**
      * Implementación de PetsRepositoryInterface
@@ -26,20 +26,24 @@ class DeletePetsUseCase implements DeletePetsInterface
     }
 
     /**
-     * Función para eliminar un registro de la tabla pets
+     * Función para consultar un registro por id en la tabla pets
      *
      * @param integer $id
      * @return array
      */
     public function handle(int $id): array
     {
-        $this->petsRepository->delete($id);
+        $pets = $this->petsRepository->find($id);
 
         return [
-            'alert' => true,
-            'icon' => 'info',
-            'title' => 'Mascota eliminada correctamente.',
-            'limpForm' => 'pets'
+            'data' => [
+                'id' => $pets->id,
+                'name' => $pets->name,
+                'age' => $pets->age,
+                'race' => $pets->race,
+                'pet_type_id' => $pets->pet_type_id,
+                'description' => $pets->description
+            ]
         ];
     }
 }

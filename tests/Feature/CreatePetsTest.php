@@ -46,7 +46,7 @@ class CreatePetsTest extends TestCase
                 'age' => $pets->age,
                 'race' => $pets->race,
                 'description' => $pets->description,
-                'pet_type_id' => $pets->pet_type_id
+                'pet_type' => $petType->name
             ]
         ]);
     }
