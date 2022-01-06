@@ -20,7 +20,7 @@ class DeletePetsTest extends TestCase
         PetTypeModel::factory(3)->create();
         $pets = PetsModel::factory()->create();
         // probando el endpoint
-        $response = $this->deleteJson('/pets/' . $pets->id);
+        $response = $this->withHeader('apiKeyLaika', 'asdf92rsdf')->deleteJson('/pets/' . $pets->id);
         // Nos aseguramos de que todo marcha bien
         $response->assertOk();
         // Revisamos que se haya eliminado el registro de la tabla pet_type
