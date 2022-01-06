@@ -21,7 +21,7 @@ class ShowPetsTest extends TestCase
         // Creamos los registros de la tabla pets
         $pets = PetsModel::factory()->create();
         // probamos el endpoint
-        $response = $this->getJson('/pets/' . $pets->id);
+        $response = $this->withHeader('apiKeyLaika', 'asdf92rsdf')->getJson('/pets/' . $pets->id);
         // Nos aseguramos de que todo esta bien
         $response->assertOk();
 

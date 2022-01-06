@@ -20,7 +20,21 @@ Route::get('/', function () {
 });
 
 Route::resource('petType', PetTypeController::class)->except(['create']);
-Route::resource('pets', PetsController::class);
+
+Route::get('/pets', [PetsController::class, 'index'])->name('pets.index');
+
+Route::middleware('apiKeyLaika')->group(function () {
+    Route::post('/pets', [PetsController::class, 'store'])->name('pets.store');
+    Route::get('/pets/{id}', [PetsController::class, 'show'])->name('pets.show');
+    Route::put('/pets/{id}', [PetsController::class, 'update'])->name('pets.update');
+    Route::delete('/pets/{id}', [PetsController::class, 'destroy'])->name('pets.destroy');
+});
 
 
-
+Route::get('/error', function () {
+    return [
+        'alert' => true,
+        'icon' => 'error',
+        'title' => 'No tiene la api-key-laika'
+    ];
+});
