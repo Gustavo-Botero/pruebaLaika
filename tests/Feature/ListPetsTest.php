@@ -20,7 +20,7 @@ class ListPetsTest extends TestCase
         PetTypeModel::factory(3)->create();
         $pets = PetsModel::factory(3)->create();
         // Consumir la ruta
-        $response = $this->getJson('/pets');
+        $response = $this->withHeader('apiKeyLaika', 'asdf92rsdf')->getJson('/pets');
         // Asegurarnos de que todo esta bien en esa ruta
         $response->assertOk();
         // Revisar que tengamos los registros creados

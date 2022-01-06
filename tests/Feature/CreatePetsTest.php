@@ -19,7 +19,7 @@ class CreatePetsTest extends TestCase
         // Creando los datos necesarios
         $petType = PetTypeModel::factory()->create();
         // probando el endpoint
-        $response = $this->postJson('/pets', [
+        $response = $this->withHeader('apiKeyLaika', 'asdf92rsdf')->postJson('/pets', [
             'data' => [
                 'name' => 'Pascal',
                 'age' => 13,
@@ -54,7 +54,7 @@ class CreatePetsTest extends TestCase
     public function test_the_date_is_required()
     {
         // probando el endpoint
-        $this->postJson('/pets', [
+        $this->withHeader('apiKeyLaika', 'asdf92rsdf')->postJson('/pets', [
             'name' => '',
             'age' => '',
             'race' => '',
@@ -65,7 +65,7 @@ class CreatePetsTest extends TestCase
 
     public function test_age_and_type_of_pet_are_numerical()
     {
-        $this->postJson('/pets', [
+        $this->withHeader('apiKeyLaika', 'asdf92rsdf')->postJson('/pets', [
             'name' => '',
             'age' => 'aaa',
             'race' => '',

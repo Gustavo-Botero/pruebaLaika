@@ -12,6 +12,7 @@ const sendAjax = (idForm) => {
     $.ajax({
         type: 'POST',
         url: $('#' + idForm).attr('action'),
+        headers: {apiKeyLaika: 'asdf92rsdf'},
         data: {
             data: valImput,
             _token: window.laravel.token
@@ -98,6 +99,7 @@ const deleteRow = (id, idForm) => {
                 $.ajax({
                     type: "POST",
                     url: window.laravel.url+'/'+idForm+'/'+id,
+                    headers: {apiKeyLaika: 'asdf92rsdf'},
                     data: {
                         _token: window.laravel.token,
                         _method: 'DELETE'
@@ -116,6 +118,7 @@ const showRow = (id, idForm) => {
     $.ajax({
         type: "GET",
         url: window.laravel.url+'/'+idForm+'/'+id,
+        headers: {apiKeyLaika: 'asdf92rsdf'},
         success: function (response) {
             
             limpiarForm(idForm);
@@ -145,6 +148,7 @@ const updateRow = (idForm) => {
     $.ajax({
         type: 'POST',
         url: window.laravel.url+'/'+idForm+'/'+id,
+        headers: {apiKeyLaika: 'asdf92rsdf'},
         data: {
             data: valImput,
             _token: window.laravel.token,
