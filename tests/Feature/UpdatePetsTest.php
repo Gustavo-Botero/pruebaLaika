@@ -20,7 +20,7 @@ class UpdatePetsTest extends TestCase
         $petType = PetTypeModel::factory(3)->create();
         $pets = PetsModel::factory()->create();
         // probando el endpoint
-        $response = $this->putJson('/pets/' . $pets->id, [
+        $response = $this->withHeader('apiKeyLaika', 'asdf92rsdf')->putJson('/pets/' . $pets->id, [
             'data' => [
                 'name' => 'Pascal',
                 'age' => 13,
@@ -55,7 +55,7 @@ class UpdatePetsTest extends TestCase
     public function test_the_date_is_required()
     {
         // probando el endpoint
-        $this->postJson('/pets', [
+        $this->withHeader('apiKeyLaika', 'asdf92rsdf')->postJson('/pets', [
             'name' => '',
             'age' => '',
             'race' => '',
@@ -66,7 +66,7 @@ class UpdatePetsTest extends TestCase
 
     public function test_age_and_type_of_pet_are_numerical()
     {
-        $this->postJson('/pets', [
+        $this->withHeader('apiKeyLaika', 'asdf92rsdf')->postJson('/pets', [
             'name' => '',
             'age' => 'aaa',
             'race' => '',

@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 use App\Http\Requests\PetsStoreRequest;
+use App\UseCases\Contracts\Modulos\Pets\ShowPetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\CreatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\UpdatePetsInterface;
 use App\UseCases\Contracts\Modulos\Pets\DeletePetsInterface;
 use App\Repositories\Contracts\Modulos\Pets\PetsRepositoryInterface;
 use App\Repositories\Contracts\Modulos\PetType\PetTypeRepositoryInterface;
-use App\UseCases\Contracts\Modulos\Pets\ShowPetsInterface;
 
 class PetsController extends Controller
 {
